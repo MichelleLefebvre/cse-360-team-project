@@ -8,7 +8,8 @@ import javafx.scene.layout.StackPane;
 import javax.swing.*;
 
 
-public class TextFormatter extends Application{
+public class TextFormatter extends Application
+{
     private TabPane tabPane;
     private InputPane inputPane;
 

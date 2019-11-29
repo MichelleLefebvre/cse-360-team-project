@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class InputPane extends VBox {
+public class InputPane extends VBox
+{
     private JPanel mainPane;
     private JPanel mainPane2;
     private TextField inputFileTextBox = new TextField();
