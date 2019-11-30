@@ -23,7 +23,7 @@ public class TextFormatter extends Application
         inputPane = new InputPane();
 
         root.getChildren().add(inputPane);
-
+        
         Scene scene = new Scene(root, 600, 600);
         stage.setTitle("Text Formatter");
         stage.setScene(scene);

@@ -135,8 +135,13 @@ public class InputPane extends VBox
 
     private void formatText()
     {
-
-
+        try {
+			Format format = new Format(inputFile);
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+        
         displayOutputFileContents();
 
     }
@@ -223,6 +228,7 @@ public class InputPane extends VBox
         public void handle(ActionEvent e)
         {
             formatText();
+            
         }
     }
 }
