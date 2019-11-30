@@ -7,23 +7,29 @@ public class ColumnBuilder
 	private static final Exception INVALIDNUMCOLUMNS = new Exception("numColumns must be either 1, or 2.");
 
 	private static final String SPACING = "          ";
-	private static final String ENDSPACING = "\n";
 	
 	private int numColumns;
+	private String lineSpacing;
 	private ArrayList<String> lineList;
 	
-	public ColumnBuilder(int numColumns) throws Exception
+	public ColumnBuilder(int numColumns, String lineSpacing) throws Exception
 	{
 		if(numColumns != 1 && numColumns != 2)
 			throw INVALIDNUMCOLUMNS;
 		
 		this.numColumns = numColumns;
+		this.lineSpacing = lineSpacing;
 		lineList = new ArrayList<String>();	
 	}
 	
 	public void add(String completedLine)
 	{
 		lineList.add(completedLine);
+	}
+	
+	public void setLineSpacing(String lineSpacing)
+	{
+		this.lineSpacing = lineSpacing;
 	}
 	
 	private String merge(String line1, String line2)
@@ -43,17 +49,17 @@ public class ColumnBuilder
 			if(numColumns == 2)
 			{
 				line1 = lineList.get(index);
-				line2 = lineList.get(numLines / 2 + index);
+				line2 = lineList.get(numLines / 2 + index + numLines % 2);
 				mergedLines += merge(line1, line2);
 			}
 			else
 			{
 				mergedLines += lineList.get(index);
 			}
-			mergedLines += ENDSPACING;
+			mergedLines += lineSpacing;
 		}
-		if(numLines % 2 == 1)
-			mergedLines += lineList.get(numLines - 1);
+		if(numColumns == 2 && numLines % 2 == 1)
+			mergedLines += lineList.get(numLines / 2);
 		
 		return mergedLines;
 	}

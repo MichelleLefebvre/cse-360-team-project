@@ -35,7 +35,7 @@ public class Format
 	{
 		spacing = DEFAULTSPACING;
 		lineBuilder = new LineBuilder(DEFAULTMAXCHARS, DEFAULTWRAPPABLE, DEFAULTALLIGNMENTTYPE);
-		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS);
+		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS, DEFAULTSPACING);
 		this.parseFile(input);
 	}
 	
@@ -45,6 +45,9 @@ public class Format
 		
 		while(fileScanner.hasNextLine())
 			parseFileLine(fileScanner.nextLine());
+		
+		columnBuilder.add(lineBuilder.getLine());
+		lineBuilder.reset();
 		
 		System.out.println(columnBuilder.merge());
 		
@@ -71,7 +74,6 @@ public class Format
 					lineBuilder.reset();
 				}
 			}
-			
 			scan.close();
 		}
 	}
@@ -128,11 +130,11 @@ public class Format
 			break;
 			
 		case 's':
-			setSpacing(SINGLE);
+			columnBuilder.setLineSpacing(SINGLE);
 			break;
 			
 		case 'd':
-			setSpacing(DOUBLE);
+			columnBuilder.setLineSpacing(DOUBLE);
 			break;
 			
 		default:
@@ -164,11 +166,6 @@ public class Format
 		default:
 			throw INVALIDCOMMAND;
 		}
-	}
-	
-	private void setSpacing(String newSpacing)
-	{
-		spacing = newSpacing;
 	}
 	
 	private void setWrappable(char state) throws Exception

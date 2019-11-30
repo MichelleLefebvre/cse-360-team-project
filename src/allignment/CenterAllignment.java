@@ -8,7 +8,7 @@ public class CenterAllignment extends AllignmentType
 		String leftSpacing = repeat(spacing, (diff / 2));
 		String rightSpacing = leftSpacing;
 		if(diff % 2 == 1)
-			rightSpacing += spacing;
+			leftSpacing += spacing;
 		return leftSpacing + line + rightSpacing;
 	}
 }
