@@ -7,21 +7,15 @@ import javafx.scene.layout.StackPane;
 
 import javax.swing.*;
 
-
 public class TextFormatter extends Application
 {
     private TabPane tabPane;
     private InputPane inputPane;
 
-
     public void start(Stage stage)
     {
-
         StackPane root = new StackPane();
-
-
         inputPane = new InputPane();
-
         root.getChildren().add(inputPane);
         
         Scene scene = new Scene(root, 600, 600);
@@ -32,9 +26,6 @@ public class TextFormatter extends Application
 
     public static void main(String[] args)
     {
-
         launch(args);
-
-
     }
 }

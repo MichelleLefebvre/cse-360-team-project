@@ -17,7 +17,6 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class InputPane extends VBox
 {
     private JPanel mainPane;
@@ -228,7 +227,6 @@ public class InputPane extends VBox
         public void handle(ActionEvent e)
         {
             formatText();
-            
         }
     }
 }

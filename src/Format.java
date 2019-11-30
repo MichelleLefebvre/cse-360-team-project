@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 import allignment.*;
+import builders.*;
 
 public class Format
 {
@@ -18,25 +19,21 @@ public class Format
 	
 	//defaults
 	private static final int DEFAULTMAXCHARS = 60;
+	private static final int DEFAULTNUMCOLUMSN = 1;
 	private static final AllignmentType DEFAULTALLIGNMENTTYPE = new LeftAllignment();
 	private static final String DEFAULTSPACING = SINGLE;
 	private static final boolean DEFAULTWRAPPABLE = true;
 	
 	//instance variables
-	private int maxChars;
-	private AllignmentType allignment;
 	private String spacing;
-	private boolean wrappable;
+	private LineBuilder lineBuilder;
 	
 	private File output;
 	
 	public Format(File input) throws Exception
 	{
-		maxChars = DEFAULTMAXCHARS;
-		allignment = DEFAULTALLIGNMENTTYPE;
 		spacing = DEFAULTSPACING;
-		wrappable = DEFAULTWRAPPABLE;
-		
+		lineBuilder = new LineBuilder(DEFAULTMAXCHARS, DEFAULTWRAPPABLE, DEFAULTALLIGNMENTTYPE);
 		this.parseFile(input);
 	}
 	
@@ -53,29 +50,36 @@ public class Format
 	private void parseFileLine(String fileLine) throws Exception
 	{
 		if(isCommand(fileLine))
+		{
 			execute(fileLine);
+		}
 		else
 		{
-			while(fileLine.length() > 0)
+			Scanner scan = new Scanner(fileLine);
+			
+			while(scan.hasNext())
 			{
-				
+				lineBuilder.add(scan.next());
+				if(lineBuilder.isComplete())
+				{
+					String line = lineBuilder.getLine();
+					System.out.println(line);
+					lineBuilder.reset();
+				}
 			}
+			
+			scan.close();
 		}
 	}
 	
-	private static String getUnwrappedLine(String input, int maxChars)
-	{
-		if(input.length() > maxChars)
-			input = input.substring(0, maxChars);
-		return input;
-	}
-	
+	//checks to see if the line is a command
 	private boolean isCommand(String line)
 	{
 		line = line.trim();
 		return line.charAt(FIRST) == COMMANDTOKEN;
 	}
 	
+	//executes a command
 	private void execute(String line) throws Exception
 	{
 		String command = line.substring(line.indexOf(COMMANDTOKEN) + 1);
@@ -101,19 +105,19 @@ public class Format
 		switch(commandSymbol)
 		{
 		case 'r':
-			allignment = new RightAllignment();
+			lineBuilder.setAllignment(new RightAllignment());
 			break;
 			
 		case 'l':
-			allignment = new LeftAllignment();
+			lineBuilder.setAllignment(new LeftAllignment());
 			break;
 			
 		case 'c':
-			allignment = new CenterAllignment();
+			lineBuilder.setAllignment(new CenterAllignment());
 			break;
 			
 		case 'e':
-			allignment = new EqualAllignment();
+			lineBuilder.setAllignment(new EqualAllignment());
 			break;
 		
 		case 't':
@@ -133,10 +137,11 @@ public class Format
 	}
 	
 	private void execute(char commandSymbol, String parameter) throws Exception
-	{
+	{		
 		switch(commandSymbol)
 		{
 		case 'n':
+			
 			break;
 			
 		case 'w':
@@ -167,8 +172,8 @@ public class Format
 		if(state != '+' && state != '-')
 			throw INVALIDCOMMAND;
 		else if(state == '+')
-			wrappable = true;
-		else
-			wrappable = false;
+			lineBuilder.setWrappable(true);
+		else if(state == '-')
+			lineBuilder.setWrappable(false);
 	}
 }
