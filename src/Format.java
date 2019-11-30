@@ -19,7 +19,7 @@ public class Format
 	
 	//defaults
 	private static final int DEFAULTMAXCHARS = 60;
-	private static final int DEFAULTNUMCOLUMSN = 1;
+	private static final int DEFAULTNUMCOLUMNS = 1;
 	private static final AllignmentType DEFAULTALLIGNMENTTYPE = new LeftAllignment();
 	private static final String DEFAULTSPACING = SINGLE;
 	private static final boolean DEFAULTWRAPPABLE = true;
@@ -27,6 +27,7 @@ public class Format
 	//instance variables
 	private String spacing;
 	private LineBuilder lineBuilder;
+	private ColumnBuilder columnBuilder;
 	
 	private File output;
 	
@@ -34,6 +35,7 @@ public class Format
 	{
 		spacing = DEFAULTSPACING;
 		lineBuilder = new LineBuilder(DEFAULTMAXCHARS, DEFAULTWRAPPABLE, DEFAULTALLIGNMENTTYPE);
+		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS);
 		this.parseFile(input);
 	}
 	
@@ -43,6 +45,8 @@ public class Format
 		
 		while(fileScanner.hasNextLine())
 			parseFileLine(fileScanner.nextLine());
+		
+		System.out.println(columnBuilder.merge());
 		
 		fileScanner.close();
 	}
@@ -63,7 +67,7 @@ public class Format
 				if(lineBuilder.isComplete())
 				{
 					String line = lineBuilder.getLine();
-					System.out.println(line);
+					columnBuilder.add(line);
 					lineBuilder.reset();
 				}
 			}
