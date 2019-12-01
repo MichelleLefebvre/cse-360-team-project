@@ -1,5 +1,7 @@
 package builders;
 
+import java.util.Scanner;
+
 import allignment.*;
 
 public class LineBuilder
@@ -83,6 +85,21 @@ public class LineBuilder
 	public String getLine()
 	{
 		return allignment.allign(line.trim(), maxChars);
+	}
+	
+	public String makeTitle(String fullLine) throws Exception
+	{
+		Scanner scan = new Scanner(fullLine);
+		String title = "";
+		while(scan.hasNext())
+		{
+			title += scan.next() + " ";
+		}
+		scan.close();
+		title = title.trim();
+		if(title.length() > maxChars)
+			throw new Exception("Error, title cannot fit on one line.");
+		return title;	
 	}
 	
 	public void reset()

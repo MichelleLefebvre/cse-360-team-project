@@ -29,10 +29,9 @@ public class Format
 	private String spacing;
 	private LineBuilder lineBuilder;
 	private ColumnBuilder columnBuilder;
-	private TitleBuilder titleBuilder;
 	private String filteredText;
 	
-	private File output;
+	private Scanner fileScanner;
 	
 	public Format(File input) throws Exception
 	{
@@ -42,6 +41,7 @@ public class Format
 		columnBuilder.setLineSpacing(spacing);
 		
 		filteredText = "";
+		fileScanner = null;
 		
 		this.parseFile(input);
 	}
@@ -63,7 +63,7 @@ public class Format
 	
 	private void parseFile(File input) throws Exception
 	{
-		Scanner fileScanner = new Scanner(new FileReader(input));
+		fileScanner = new Scanner(new FileReader(input));
 		
 		while(fileScanner.hasNextLine())
 			parseFileLine(fileScanner.nextLine());
@@ -153,7 +153,7 @@ public class Format
 			break;
 		
 		case 't':
-
+			makeTitle();
 			break;
 			
 		case 's':
@@ -210,6 +210,19 @@ public class Format
 		filteredText += columnBuilder.merge();
 		columnBuilder = new ColumnBuilder(numColumns);
 		columnBuilder.setLineSpacing(spacing);
+	}
+	
+	private void makeTitle() throws Exception
+	{
+		String nextLine = "";
+		while(fileScanner.hasNextLine() && isCommand((nextLine = fileScanner.nextLine())))
+			execute(nextLine);
+		String title = lineBuilder.makeTitle(nextLine);
+		String underline = new String(new char[title.length()]).replace('\0', '_');
+		
+		AllignmentType center = new CenterAllignment();
+		columnBuilder.add(center.allign(title, lineBuilder.getMaxChars()));
+		columnBuilder.add(center.allign(underline, lineBuilder.getMaxChars()));
 	}
 	
 	private void breakLine(String parameter) throws Exception
