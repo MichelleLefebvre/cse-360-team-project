@@ -107,6 +107,8 @@ public class Format
 	//checks to see if the line is a command
 	private boolean isCommand(String line)
 	{
+		if(line.length() <= 0)
+			return false;
 		line = line.trim();
 		return line.charAt(FIRST) == COMMANDTOKEN;
 	}

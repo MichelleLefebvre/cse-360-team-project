@@ -144,6 +144,7 @@ public class InputPane extends VBox
 		}
         catch(Exception ex)
         {
+        	ex.printStackTrace();
         	fileFormatter = null;
 			errorLabel.setText(ex.getLocalizedMessage());
 		}
@@ -168,6 +169,7 @@ public class InputPane extends VBox
         }
         catch(Exception ex)
         {
+        	ex.printStackTrace();
             errorLabel.setText(ex.getLocalizedMessage());
         }
     }
