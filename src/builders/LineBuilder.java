@@ -66,6 +66,11 @@ public class LineBuilder
 		return isComplete;
 	}
 	
+	public boolean isEmpty()
+	{
+		return line.length() == 0;
+	}
+	
 	public String getLine()
 	{
 		return allignment.allign(line.trim(), maxChars);

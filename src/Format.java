@@ -28,6 +28,7 @@ public class Format
 	private String spacing;
 	private LineBuilder lineBuilder;
 	private ColumnBuilder columnBuilder;
+	private String filteredText;
 	
 	private File output;
 	
@@ -35,7 +36,11 @@ public class Format
 	{
 		spacing = DEFAULTSPACING;
 		lineBuilder = new LineBuilder(DEFAULTMAXCHARS, DEFAULTWRAPPABLE, DEFAULTALLIGNMENTTYPE);
-		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS, DEFAULTSPACING);
+		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS);
+		columnBuilder.setLineSpacing(spacing);
+		
+		filteredText = "";
+		
 		this.parseFile(input);
 	}
 	
@@ -46,8 +51,11 @@ public class Format
 		while(fileScanner.hasNextLine())
 			parseFileLine(fileScanner.nextLine());
 		
-		columnBuilder.add(lineBuilder.getLine());
-		lineBuilder.reset();
+		if(!lineBuilder.isEmpty())
+		{
+			columnBuilder.add(lineBuilder.getLine());
+			lineBuilder.reset();
+		}
 		
 		System.out.println(columnBuilder.merge());
 		
@@ -130,11 +138,13 @@ public class Format
 			break;
 			
 		case 's':
-			columnBuilder.setLineSpacing(SINGLE);
+			spacing = SINGLE;
+			columnBuilder.setLineSpacing(spacing);
 			break;
 			
 		case 'd':
-			columnBuilder.setLineSpacing(DOUBLE);
+			spacing = DOUBLE;
+			columnBuilder.setLineSpacing(spacing);
 			break;
 			
 		default:
@@ -147,7 +157,7 @@ public class Format
 		switch(commandSymbol)
 		{
 		case 'n':
-			
+			setMaxChars(parameter);
 			break;
 			
 		case 'w':
@@ -155,6 +165,7 @@ public class Format
 			break;
 			
 		case 'a':
+			setNumColumns(parameter);
 			break;
 		
 		case 'p':
@@ -166,6 +177,28 @@ public class Format
 		default:
 			throw INVALIDCOMMAND;
 		}
+	}
+	
+	private void setNumColumns(String parameter) throws Exception
+	{
+		Scanner scan = new Scanner(parameter);
+		if(scan.hasNextInt())
+		{
+			filteredText += columnBuilder.merge();
+			columnBuilder = new ColumnBuilder(scan.nextInt());
+			columnBuilder.setLineSpacing(spacing);
+		}
+		else
+			throw INVALIDCOMMAND;
+	}
+	
+	private void setMaxChars(String parameter) throws Exception
+	{
+		Scanner scan = new Scanner(parameter);
+		if(scan.hasNextInt())
+			lineBuilder.setMaxChars(scan.nextInt());
+		else
+			throw INVALIDCOMMAND;
 	}
 	
 	private void setWrappable(char state) throws Exception

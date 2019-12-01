@@ -12,13 +12,12 @@ public class ColumnBuilder
 	private String lineSpacing;
 	private ArrayList<String> lineList;
 	
-	public ColumnBuilder(int numColumns, String lineSpacing) throws Exception
+	public ColumnBuilder(int numColumns) throws Exception
 	{
 		if(numColumns != 1 && numColumns != 2)
 			throw INVALIDNUMCOLUMNS;
 		
 		this.numColumns = numColumns;
-		this.lineSpacing = lineSpacing;
 		lineList = new ArrayList<String>();	
 	}
 	
