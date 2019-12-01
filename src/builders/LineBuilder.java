@@ -27,6 +27,7 @@ public class LineBuilder
 	{
 		this.maxChars = maxChars;
 	}
+	public int getMaxChars(){return this.getMaxChars();}
 	
 	public void setWrappable(boolean wrappable)
 	{

@@ -18,7 +18,7 @@ public class Format
 	private static final String DOUBLE = "\n\n";
 	
 	//defaults
-	private static final int DEFAULTMAXCHARS = 60;
+	private static final int DEFAULTMAXCHARS = 80;
 	private static final int DEFAULTNUMCOLUMNS = 1;
 	private static final AllignmentType DEFAULTALLIGNMENTTYPE = new LeftAllignment();
 	private static final String DEFAULTSPACING = SINGLE;
@@ -28,6 +28,7 @@ public class Format
 	private String spacing;
 	private LineBuilder lineBuilder;
 	private ColumnBuilder columnBuilder;
+	private TitleBuilder titleBuilder;
 	private String filteredText;
 	
 	private File output;
@@ -136,6 +137,7 @@ public class Format
 			break;
 		
 		case 't':
+
 			break;
 			
 		case 's':
