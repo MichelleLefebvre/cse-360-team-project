@@ -57,7 +57,9 @@ public class Format
 			lineBuilder.reset();
 		}
 		
-		System.out.println(columnBuilder.merge());
+		filteredText += columnBuilder.merge();
+		
+		System.out.println(filteredText);
 		
 		fileScanner.close();
 	}
@@ -71,7 +73,6 @@ public class Format
 		else
 		{
 			Scanner scan = new Scanner(fileLine);
-			
 			while(scan.hasNext())
 			{
 				lineBuilder.add(scan.next());
@@ -100,7 +101,7 @@ public class Format
 		command = command.replace(" ", "");
 		command = command.toLowerCase();
 		
-		char symbol = command.charAt(FIRST);	
+		char symbol = command.charAt(FIRST);
 		try
 		{
 			if(command.length() > 1)
@@ -169,6 +170,7 @@ public class Format
 			break;
 		
 		case 'p':
+			
 			break;
 			
 		case 'b':
@@ -182,14 +184,13 @@ public class Format
 	private void setNumColumns(String parameter) throws Exception
 	{
 		Scanner scan = new Scanner(parameter);
+		int numColumns = 0;
 		if(scan.hasNextInt())
-		{
-			filteredText += columnBuilder.merge();
-			columnBuilder = new ColumnBuilder(scan.nextInt());
-			columnBuilder.setLineSpacing(spacing);
-		}
-		else
-			throw INVALIDCOMMAND;
+			numColumns = scan.nextInt();
+		scan.close();
+		filteredText += columnBuilder.merge();
+		columnBuilder = new ColumnBuilder(numColumns);
+		columnBuilder.setLineSpacing(spacing);
 	}
 	
 	private void setMaxChars(String parameter) throws Exception

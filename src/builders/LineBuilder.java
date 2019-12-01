@@ -38,8 +38,11 @@ public class LineBuilder
 		allignment = type;
 	}
 	
-	public void add(String word)
+	public void add(String word) throws Exception
 	{
+		if(word.length() > maxChars && (wrappable == true))
+			throw new Exception("Word longer than line with wrap on");
+		
 		if(line.length() + word.length() > maxChars)
 		{
 			if(wrappable == true)
