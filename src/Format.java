@@ -176,6 +176,10 @@ public class Format
 			break;
 			
 		case 'b':
+			for(int i = 0; i <= Integer.parseInt(parameter); i++)
+			{
+				columnBuilder.add("\n");
+			}
 			break;
 			
 		default:
