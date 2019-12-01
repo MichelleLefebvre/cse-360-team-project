@@ -168,7 +168,6 @@ public class InputPane extends VBox
         }
         catch(Exception ex)
         {
-        	ex.printStackTrace();
             errorLabel.setText(ex.getLocalizedMessage());
         }
     }

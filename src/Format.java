@@ -192,10 +192,7 @@ public class Format
 			break;
 			
 		case 'b':
-			for(int i = 0; i <= Integer.parseInt(parameter); i++)
-			{
-				columnBuilder.add("\n");
-			}
+			breakLine(parameter);
 			break;
 			
 		default:
@@ -213,6 +210,19 @@ public class Format
 		filteredText += columnBuilder.merge();
 		columnBuilder = new ColumnBuilder(numColumns);
 		columnBuilder.setLineSpacing(spacing);
+	}
+	
+	private void breakLine(String parameter) throws Exception
+	{
+		int numLines;
+		Scanner scan = new Scanner(parameter);
+		if(scan.hasNextInt())
+			numLines = scan.nextInt();
+		else
+			throw INVALIDCOMMAND;
+		
+		for(int i = 0; i < numLines; i++)
+			columnBuilder.add("");
 	}
 	
 	private void setMaxChars(String parameter) throws Exception
