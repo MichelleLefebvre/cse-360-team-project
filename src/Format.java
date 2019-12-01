@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 import allignment.*;
@@ -43,6 +44,21 @@ public class Format
 		filteredText = "";
 		
 		this.parseFile(input);
+	}
+	
+	public String getFormattedText()
+	{
+		return filteredText;
+	}
+	
+	public void saveTo(File output) throws Exception
+	{
+		if(output == null || output.exists())
+			throw new Exception("Error, that file already exists.");
+		
+		FileWriter writer = new FileWriter(output);
+		writer.write(filteredText);
+		writer.close();
 	}
 	
 	private void parseFile(File input) throws Exception

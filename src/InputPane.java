@@ -38,6 +38,8 @@ public class InputPane extends VBox
     //private List<String> outputFile = new ArrayList<>();
     private File inputFile = null;
     private String allText;
+    
+    private Format fileFormatter;
 
     List<String> lineList = new ArrayList<>();
     //private OutputPane outputPane;
@@ -84,6 +86,8 @@ public class InputPane extends VBox
         this.getChildren().addAll(btnBox, inputLabel, inputTextBox, formatTextBtn, outputLabel, outputField, btnBox2, errorLabel);
 
 
+        fileFormatter = null;
+        
         uploadBtn.setOnAction(new uploadFileHandler());
         formatTextBtn.setOnAction(new FormatTextHandler());
         saveFileBtn.setOnAction(new saveFileHandler2());
@@ -134,14 +138,20 @@ public class InputPane extends VBox
 
     private void formatText()
     {
-        try {
-			Format format = new Format(inputFile);
-		} catch (Exception ex) {
-			// TODO Auto-generated catch block
-			ex.printStackTrace();
+        try
+        {
+			fileFormatter = new Format(inputFile);
+		}
+        catch(Exception ex)
+        {
+        	fileFormatter = null;
+			errorLabel.setText(ex.getLocalizedMessage());
 		}
         
-        displayOutputFileContents();
+        if(fileFormatter != null)
+        	outputField.setText(fileFormatter.getFormattedText());
+        
+        //displayOutputFileContents();
 
     }
 
@@ -151,22 +161,15 @@ public class InputPane extends VBox
         try {
             JFileChooser fchooser = new JFileChooser();
 
-
             fchooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int result = fchooser.showSaveDialog(mainPane);
-
-            FileWriter txtWriter = new FileWriter(fchooser.getSelectedFile() + ".txt");
-            for(int i = 0; i<lineList.size(); i++) {
-                txtWriter.write(lineList.get(i));
-            }
-            txtWriter.flush();
-            txtWriter.close();
-
-
+            
+            fileFormatter.saveTo(fchooser.getSelectedFile());
         }
-        catch(IOException e)
+        catch(Exception ex)
         {
-            errorLabel.setText("cannot write to file");
+        	ex.printStackTrace();
+            errorLabel.setText(ex.getLocalizedMessage());
         }
     }
 
