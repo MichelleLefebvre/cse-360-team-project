@@ -23,7 +23,7 @@ public class ColumnBuilder
 	
 	public void add(String completedLine)
 	{
-		lineList.add(completedLine);
+		lineList.add(completedLine + lineSpacing);
 	}
 	
 	public void setLineSpacing(String lineSpacing)
@@ -55,7 +55,6 @@ public class ColumnBuilder
 			{
 				mergedLines += lineList.get(index);
 			}
-			mergedLines += lineSpacing;
 		}
 		if(numColumns == 2 && numLines % 2 == 1)
 			mergedLines += lineList.get(numLines / 2);
