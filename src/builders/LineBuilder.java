@@ -11,6 +11,7 @@ public class LineBuilder
 	
 	private String line;
 	private String remainder;
+	private String indentation;
 	
 	private AllignmentType allignment;
 	private boolean isComplete;
@@ -87,7 +88,7 @@ public class LineBuilder
 	
 	public String getLine()
 	{
-		return allignment.allign(line.trim(), maxChars);
+		return allignment.allign(indentation + line.trim(), maxChars);
 	}
 	
 	public String makeTitle(String fullLine) throws Exception
@@ -102,12 +103,24 @@ public class LineBuilder
 		title = title.trim();
 		if(title.length() > maxChars)
 			throw new Exception("Error, title cannot fit on one line.");
-		return title;	
+		return title;
+	}
+	
+	public void addIndentation(int numSpaces)
+	{
+		indentation = "";
+		for(int i = 0; i < numSpaces; i++)
+			indentation += " ";
+		if(line.length() <= 0)
+			line = indentation;
+		else
+			remainder = indentation + remainder;
 	}
 	
 	public void reset()
 	{
 		line = remainder + " ";
 		remainder = "";
+		indentation = "";
 	}
 }

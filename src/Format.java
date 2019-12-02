@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -190,7 +189,7 @@ public class Format
 			break;
 		
 		case 'p':
-			
+			indentNextLine(parameter);
 			break;
 			
 		case 'b':
@@ -200,6 +199,18 @@ public class Format
 		default:
 			throw INVALIDCOMMAND;
 		}
+	}
+	
+	private void indentNextLine(String parameter) throws Exception
+	{
+		Scanner scan = new Scanner(parameter);
+		int numSpaces = -1;
+		if(scan.hasNextInt())
+			numSpaces = scan.nextInt();
+		scan.close();
+		if(numSpaces < 0)
+			throw INVALIDCOMMAND;
+		lineBuilder.addIndentation(numSpaces);
 	}
 	
 	private void setNumColumns(String parameter) throws Exception
@@ -229,11 +240,12 @@ public class Format
 	
 	private void breakLine(String parameter) throws Exception
 	{
-		int numLines;
+		int numLines = -1;
 		Scanner scan = new Scanner(parameter);
 		if(scan.hasNextInt())
 			numLines = scan.nextInt();
-		else
+		scan.close();
+		if(numLines < 0)
 			throw INVALIDCOMMAND;
 		
 		for(int i = 0; i < numLines; i++)
@@ -242,11 +254,14 @@ public class Format
 	
 	private void setMaxChars(String parameter) throws Exception
 	{
+		int maxChars = -1;
 		Scanner scan = new Scanner(parameter);
 		if(scan.hasNextInt())
-			lineBuilder.setMaxChars(scan.nextInt());
-		else
+			maxChars = scan.nextInt();
+		scan.close();
+		if(maxChars <= 0)
 			throw INVALIDCOMMAND;
+		lineBuilder.setMaxChars(maxChars);
 	}
 	
 	private void setWrappable(char state) throws Exception
