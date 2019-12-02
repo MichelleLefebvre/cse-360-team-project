@@ -53,6 +53,9 @@ public class LineBuilder
 		
 		if(line.length() + word.length() > maxChars)
 		{
+			if(line.length() > maxChars)
+				line = line.trim();
+			
 			if(wrappable == true)
 			{
 				remainder = word;
