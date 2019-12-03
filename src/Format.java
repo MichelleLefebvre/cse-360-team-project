@@ -75,7 +75,7 @@ public class Format
 		
 		filteredText += columnBuilder.merge();
 		
-		System.out.println(filteredText);
+		//System.out.println(filteredText);
 		
 		fileScanner.close();
 	}

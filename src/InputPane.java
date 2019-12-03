@@ -17,6 +17,8 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javafx.scene.paint.Color.RED;
+
 public class InputPane extends VBox
 {
     private JPanel mainPane;
@@ -59,10 +61,10 @@ public class InputPane extends VBox
 
         inputTextBox.setEditable(false); //disable editting for read-only
 
-        errorLabel = new Label(""); //change this to display hardcoded error message
-
+        errorLabel = new Label("");
         formatTextBtn.setPrefSize(660, 30);
         //adds style to buttons implement later
+
         formatTextBtn.setFont(Font.font("Verdana", 12));
         //formatTextBtn.setBackground(new Background(new BackgroundFill(Color.web("#7592ba"), CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -100,6 +102,7 @@ public class InputPane extends VBox
     }
     private void uploadFile()
     {
+        errorLabel.setText(" ");
         JFileChooser fchooser = new JFileChooser();
 
 
@@ -138,6 +141,7 @@ public class InputPane extends VBox
 
     private void formatText()
     {
+        errorLabel.setText(" ");
         try
         {
 			fileFormatter = new Format(inputFile);
@@ -159,6 +163,7 @@ public class InputPane extends VBox
     public void saveFile()
     {
         //get from filePath textfield
+        errorLabel.setText(" ");
         try {
             JFileChooser fchooser = new JFileChooser();
 
@@ -166,7 +171,9 @@ public class InputPane extends VBox
             int result = fchooser.showSaveDialog(mainPane);
             
             fileFormatter.saveTo(fchooser.getSelectedFile());
+            //errorLabel.setStyle("-fx-text-fill: green");
             errorLabel.setText("saved successfully");
+           // errorLabel.setStyle("-fx-text-fill: red");
         }
         catch(Exception ex)
         {

@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3128551a-6225-4cd4-b2dc-75d23fca973e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Format.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Format.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InputPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/allignment/EqualAllignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/allignment/EqualAllignment.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +19,17 @@
       <file leaf-file-name="Format.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Format.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1701">
-              <caret line="233" column="83" selection-start-line="233" selection-start-column="83" selection-end-line="233" selection-end-column="83" />
+            <state relative-caret-position="79">
+              <caret line="86" column="30" lean-forward="true" selection-start-line="86" selection-start-column="30" selection-end-line="86" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParagraphBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/builders/ParagraphBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -34,29 +43,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ColumnBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/builders/ColumnBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="RightAllignment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/allignment/RightAllignment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CenterAllignment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/allignment/CenterAllignment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AllignmentType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/allignment/AllignmentType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -70,20 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InputPane.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="InputPane.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/InputPane.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="165" column="59" lean-forward="true" selection-start-line="165" selection-start-column="59" selection-end-line="165" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EqualAllignment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/allignment/EqualAllignment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+            <state relative-caret-position="442">
+              <caret line="165" column="32" selection-start-line="165" selection-start-column="32" selection-end-line="165" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -91,7 +82,7 @@
       <file leaf-file-name="LineBuilder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/builders/LineBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1581">
+            <state relative-caret-position="1554">
               <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
               <folding>
                 <element signature="e#586#587#0" expanded="true" />
@@ -125,7 +116,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>line</find>
-      <find>line</find>
+      <find>System.out</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -136,9 +127,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/builders/LineBuilder.java" />
         <option value="$PROJECT_DIR$/src/builders/TitleBuilder.java" />
+        <option value="$PROJECT_DIR$/src/allignment/EqualAllignment.java" />
         <option value="$PROJECT_DIR$/src/Format.java" />
         <option value="$PROJECT_DIR$/src/InputPane.java" />
-        <option value="$PROJECT_DIR$/src/allignment/EqualAllignment.java" />
       </list>
     </option>
   </component>
@@ -325,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575334229295</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="-e command working tidied up again">
+      <created>1575336965941</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575336965941</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -341,11 +339,11 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" weight="0.32874495" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3291592" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.0" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.1627907" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12550607" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1659919" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.24939272" />
       <window_info id="UI Designer" order="2" />
@@ -488,37 +486,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/builders/TitleBuilder.java" />
-    <entry file="file://$PROJECT_DIR$/src/builders/ParagraphBuilder.java">
+    <entry file="file://$PROJECT_DIR$/src/allignment/EqualAllignment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/allignment/LeftAllignment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/builders/ColumnBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/InputPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="165" column="59" lean-forward="true" selection-start-line="165" selection-start-column="59" selection-end-line="165" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/builders/LineBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
+        <state relative-caret-position="1554">
           <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
           <folding>
             <element signature="e#586#587#0" expanded="true" />
@@ -539,24 +523,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/allignment/CenterAllignment.java">
+    <entry file="file://$PROJECT_DIR$/src/builders/ParagraphBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Format.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1701">
-          <caret line="233" column="83" selection-start-line="233" selection-start-column="83" selection-end-line="233" selection-end-column="83" />
+        <state relative-caret-position="79">
+          <caret line="86" column="30" lean-forward="true" selection-start-line="86" selection-start-column="30" selection-end-line="86" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/allignment/LeftAllignment.java">
+    <entry file="file://$PROJECT_DIR$/src/builders/ColumnBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/allignment/CenterAllignment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -569,15 +560,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/allignment/RightAllignment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/allignment/EqualAllignment.java">
+    <entry file="file://$PROJECT_DIR$/src/TextFormatter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        <state relative-caret-position="221">
+          <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InputPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="165" column="32" selection-start-line="165" selection-start-column="32" selection-end-line="165" selection-end-column="32" />
         </state>
       </provider>
     </entry>
