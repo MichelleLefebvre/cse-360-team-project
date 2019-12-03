@@ -166,6 +166,7 @@ public class InputPane extends VBox
             int result = fchooser.showSaveDialog(mainPane);
             
             fileFormatter.saveTo(fchooser.getSelectedFile());
+            errorLabel.setText("saved successfully");
         }
         catch(Exception ex)
         {

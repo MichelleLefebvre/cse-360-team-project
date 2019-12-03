@@ -39,11 +39,5 @@ public class EqualAllignment extends AllignmentType
 		return newLine;
 	}
 
-	public static void main(String[] args)
-	{
 
-		EqualAllignment e = new EqualAllignment();
-
-		e.allign("Michelle is the best. keep going everything will be fine.", 80);
-	}
 }
