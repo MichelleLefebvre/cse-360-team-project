@@ -23,6 +23,7 @@ public class LineBuilder
 		this.allignment = allignment;
 		line = "";
 		remainder = "";
+		indentation = "";
 		isComplete = false;
 	}
 	
