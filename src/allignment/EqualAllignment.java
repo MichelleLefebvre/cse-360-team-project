@@ -27,7 +27,7 @@ public class EqualAllignment extends AllignmentType
 
 			}
 
-			System.out.println(numCharacter);
+
 
 		}
 
@@ -35,8 +35,6 @@ public class EqualAllignment extends AllignmentType
 		{
 			newLine += words[i];
 		}
-
-		System.out.println(newLine);
 
 		return newLine;
 	}
