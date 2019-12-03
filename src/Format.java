@@ -227,6 +227,13 @@ public class Format
 	
 	private void makeTitle() throws Exception
 	{
+		if(!lineBuilder.isEmpty())
+		{
+			String line = lineBuilder.getLine();
+			columnBuilder.add(line);
+			lineBuilder.reset();
+		}
+		
 		String nextLine = "";
 		while(fileScanner.hasNextLine() && isCommand((nextLine = fileScanner.nextLine())))
 			execute(nextLine);
