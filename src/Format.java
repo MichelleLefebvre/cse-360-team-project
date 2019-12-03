@@ -249,7 +249,7 @@ public class Format
 			throw INVALIDCOMMAND;
 		
 		for(int i = 0; i < numLines; i++)
-			columnBuilder.add("");
+			columnBuilder.add(lineBuilder.blankLine());
 	}
 	
 	private void setMaxChars(String parameter) throws Exception

@@ -33,6 +33,8 @@ public class ColumnBuilder
 	
 	private String merge(String line1, String line2)
 	{
+		line1 = line1.replace("\n", "");
+		line2 = line2.replace("\n", "");
 		return line1 + SPACING + line2;
 	}
 	
@@ -49,7 +51,7 @@ public class ColumnBuilder
 			{
 				line1 = lineList.get(index);
 				line2 = lineList.get(numLines / 2 + index + numLines % 2);
-				mergedLines += merge(line1, line2);
+				mergedLines += merge(line1, line2) + lineSpacing;
 			}
 			else
 			{

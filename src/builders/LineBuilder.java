@@ -118,6 +118,14 @@ public class LineBuilder
 			remainder = indentation + remainder;
 	}
 	
+	public String blankLine()
+	{
+		String blankLine = "";
+		for(int i = 0; i < maxChars; i++)
+			blankLine += " ";
+		return blankLine;
+	}
+	
 	public void reset()
 	{
 		line = remainder + " ";
