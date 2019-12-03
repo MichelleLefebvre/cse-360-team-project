@@ -50,14 +50,17 @@ public class InputPane extends VBox
         //this.outputPane = opane;
         this.setSpacing(5);
         this.setPadding(new Insets(25,15,5,15));
+        
+        inputFileTextBox.setFont(Font.font("Consolas"));
+        outputField.setFont(Font.font("Consolas"));
 
-        uploadBtn.setFont(Font.font("Verdana", 12));
+        uploadBtn.setFont(Font.font("Consolas", 12));
 
         btnBox.setAlignment(Pos.CENTER);
         btnBox.getChildren().addAll(inputFileTextBox, uploadBtn);
 
         inputLabel = new Label("Input:");
-        inputLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
+        inputLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
 
         inputTextBox.setEditable(false); //disable editting for read-only
 
@@ -65,7 +68,7 @@ public class InputPane extends VBox
         formatTextBtn.setPrefSize(660, 30);
         //adds style to buttons implement later
 
-        formatTextBtn.setFont(Font.font("Verdana", 12));
+        formatTextBtn.setFont(Font.font("Consolas", 12));
         //formatTextBtn.setBackground(new Background(new BackgroundFill(Color.web("#7592ba"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         inputFileTextBox.setPrefSize(350,20);
@@ -75,7 +78,7 @@ public class InputPane extends VBox
         btnBox2.getChildren().addAll(filePath, saveFileBtn);
 
         outputLabel = new Label("Output:");
-        outputLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
+        outputLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
 
         errorLabel = new Label(""); //change this to display hardcoded error message
 
@@ -83,7 +86,7 @@ public class InputPane extends VBox
 
         //saveFileBtn.setPrefSize(200, 20);
         //adds style to buttons implement later
-        saveFileBtn.setFont(Font.font("Verdana", 12));
+        saveFileBtn.setFont(Font.font("Consolas", 12));
 
         this.getChildren().addAll(btnBox, inputLabel, inputTextBox, formatTextBtn, outputLabel, outputField, btnBox2, errorLabel);
 
