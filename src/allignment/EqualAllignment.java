@@ -6,9 +6,9 @@ public class EqualAllignment extends AllignmentType
 	{
 		String[] words = line.split(" ");
 		int numCharacter = 0;
-		String newLine = " ";
+		String newLine = "";
 
-		while(numCharacter < maxChars -1) {
+		while(numCharacter < maxChars) {
 
 			for (int i = 0; i < words.length; i++)
 			{
@@ -24,8 +24,10 @@ public class EqualAllignment extends AllignmentType
 			{
 
 				numCharacter += words[i].length();
-				System.out.println(numCharacter);
+
 			}
+
+			System.out.println(numCharacter);
 
 		}
 
@@ -39,4 +41,11 @@ public class EqualAllignment extends AllignmentType
 		return newLine;
 	}
 
+	public static void main(String[] args)
+	{
+
+		EqualAllignment e = new EqualAllignment();
+
+		e.allign("Michelle is the best. keep going everything will be fine.", 80);
+	}
 }
