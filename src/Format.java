@@ -99,7 +99,7 @@ public class Format
 		}
 		catch(Exception ex)
 		{
-			throw new Exception("The command " + line + " is invalid");
+			throw new Exception(ex.getMessage());
 		}
 	}
 	

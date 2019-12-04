@@ -62,12 +62,15 @@ public class LineBuilder
 		return formattedText;
 	}
 	
-	public ArrayList<String> makeTitle(String rawText)
+	public ArrayList<String> makeTitle(String rawText) throws Exception
 	{
 		AllignmentType previousAllignment = this.allignment;
 		this.setAllignment(new CenterAllignment());
 		
 		ArrayList<String> title = format(rawText);
+		
+		if(title.size() > 1)
+			throw new Exception("Error, title is longer than one line.");
 		
 		String current;
 		String underline;
