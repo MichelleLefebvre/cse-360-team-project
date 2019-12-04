@@ -6,7 +6,7 @@ public abstract class AllignmentType
 	
 	public abstract String allign(String line, int maxChars);
 	
-	protected static String repeat(String toRepeat, int numTimes)
+	public String repeat(String toRepeat, int numTimes)
 	{
 		String repeat = "";
 		for(int counter = 0; counter < numTimes; counter++)

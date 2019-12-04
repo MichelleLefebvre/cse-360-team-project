@@ -4,63 +4,89 @@ import java.util.ArrayList;
 
 public class ColumnBuilder
 {
-	private static final Exception INVALIDNUMCOLUMNS = new Exception("numColumns must be either 1, or 2.");
-
+	private static final int DEFAULTNUMCOLUMNS = 1;
+	
 	private static final String SPACING = "          ";
+	private static final String ENDLINE = "\n";
 	
 	private int numColumns;
-	private String lineSpacing;
 	private ArrayList<String> lineList;
 	
-	public ColumnBuilder(int numColumns) throws Exception
+	private String finalizedColumns;
+	
+	public ColumnBuilder()
 	{
-		if(numColumns != 1 && numColumns != 2)
-			throw INVALIDNUMCOLUMNS;
+		this.numColumns = DEFAULTNUMCOLUMNS;
+		lineList = new ArrayList<String>();
 		
-		this.numColumns = numColumns;
-		lineList = new ArrayList<String>();	
+		finalizedColumns = "";
 	}
 	
-	public void add(String completedLine)
+	public int getNumColumns()
 	{
-		lineList.add(completedLine + lineSpacing);
+		return numColumns;
 	}
 	
-	public void setLineSpacing(String lineSpacing)
+	public void setNumColumns(int newNumColumns) throws Exception
 	{
-		this.lineSpacing = lineSpacing;
-	}
-	
-	private String merge(String line1, String line2)
-	{
-		line1 = line1.replace("\n", "");
-		line2 = line2.replace("\n", "");
-		return line1 + SPACING + line2;
-	}
-	
-	public String merge()
-	{
-		int numLines = lineList.size();
-		int numMergedLines = numLines / numColumns;
+		if(newNumColumns != 1 && newNumColumns != 2)
+			throw new Exception();
 		
-		String mergedLines = "";
-		String line1, line2;
-		for(int index = 0; index < numMergedLines; index++)
+		if(numColumns != newNumColumns)
 		{
-			if(numColumns == 2)
-			{
-				line1 = lineList.get(index);
-				line2 = lineList.get(numLines / 2 + index + numLines % 2);
-				mergedLines += merge(line1, line2) + lineSpacing;
-			}
-			else
-			{
-				mergedLines += lineList.get(index);
-			}
+			finalizedColumns += merge();
+			lineList = new ArrayList<String>();
+			numColumns = newNumColumns;
 		}
-		if(numColumns == 2 && numLines % 2 == 1)
-			mergedLines += lineList.get(numLines / 2);
+	}
+	
+	public void add(ArrayList<String> linesToAdd)
+	{
+		lineList.addAll(linesToAdd);
+	}
+	
+	public void add(String lineToAdd)
+	{
+		lineList.add(lineToAdd);
+	}
+	
+	private String merge(int index)
+	{
+		String mergedIndex = "";
+		if(numColumns == 1)
+		{
+			mergedIndex = lineList.get(index);
+		}
+		else
+		{
+			int numLines = lineList.size();
+			mergedIndex = lineList.get(index) + SPACING + lineList.get(numLines / 2 + index + numLines % 2);
+		}
+		return mergedIndex;
+	}
+	
+	private String merge()
+	{			
+		String mergedLines = "";
+		
+		int endIndex = lineList.size() / numColumns;
+		for(int index = 0; index < endIndex; index++)
+			mergedLines += merge(index) + ENDLINE;
+		
+		if(numColumns == 2 && lineList.size() % 2 == 1)
+			mergedLines += lineList.get(lineList.size() / 2) + ENDLINE;
 		
 		return mergedLines;
 	}
+	
+	public String toString()
+	{
+		if(!lineList.isEmpty())
+		{
+			finalizedColumns += merge();
+			lineList = new ArrayList<String>();
+		}
+		
+		return finalizedColumns;
+	}	
 }

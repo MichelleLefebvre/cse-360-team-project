@@ -3,7 +3,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-import allignment.*;
+import allignment.CenterAllignment;
+import allignment.EqualAllignment;
+import allignment.LeftAllignment;
+import allignment.RightAllignment;
 import builders.*;
 
 public class Format
@@ -13,41 +16,27 @@ public class Format
 	
 	//constants
 	private static final int FIRST = 0;
-	private static final char COMMANDTOKEN = '-';
-	private static final String SINGLE = "\n";
-	private static final String DOUBLE = "\n\n";
-	
-	//defaults
-	private static final int DEFAULTMAXCHARS = 80;
-	private static final int DEFAULTNUMCOLUMNS = 1;
-	private static final AllignmentType DEFAULTALLIGNMENTTYPE = new LeftAllignment();
-	private static final String DEFAULTSPACING = SINGLE;
-	private static final boolean DEFAULTWRAPPABLE = true;
+	private static final char COMMANDTOKEN = '-';	
+	private static final int SINGLE = 1;
+	private static final int DOUBLE = 2;
 	
 	//instance variables
-	private String spacing;
 	private LineBuilder lineBuilder;
 	private ColumnBuilder columnBuilder;
-	private String filteredText;
-	
 	private Scanner fileScanner;
 	
 	public Format(File input) throws Exception
 	{
-		spacing = DEFAULTSPACING;
-		lineBuilder = new LineBuilder(DEFAULTMAXCHARS, DEFAULTWRAPPABLE, DEFAULTALLIGNMENTTYPE);
-		columnBuilder = new ColumnBuilder(DEFAULTNUMCOLUMNS);
-		columnBuilder.setLineSpacing(spacing);
-		
-		filteredText = "";
+		lineBuilder = new LineBuilder();
+		columnBuilder = new ColumnBuilder();
 		fileScanner = null;
 		
-		this.parseFile(input);
+		parse(input);
 	}
 	
 	public String getFormattedText()
 	{
-		return filteredText;
+		return columnBuilder.toString();
 	}
 	
 	public void saveTo(File output) throws Exception
@@ -55,56 +44,37 @@ public class Format
 		if(output == null || output.exists())
 			throw new Exception("Error, that file already exists.");
 		
+		System.out.println(columnBuilder);
+		
 		FileWriter writer = new FileWriter(output);
-		writer.write(filteredText);
+		writer.write(columnBuilder.toString());
 		writer.close();
 	}
 	
-	private void parseFile(File input) throws Exception
+	private void parse(File input) throws Exception
 	{
 		fileScanner = new Scanner(new FileReader(input));
 		
 		while(fileScanner.hasNextLine())
-			parseFileLine(fileScanner.nextLine());
-		
-		if(!lineBuilder.isEmpty())
-		{
-			columnBuilder.add(lineBuilder.getLine());
-			lineBuilder.reset();
-		}
-		
-		filteredText += columnBuilder.merge();
-		
-		//System.out.println(filteredText);
+			parse(fileScanner.nextLine());
 		
 		fileScanner.close();
 	}
 	
-	private void parseFileLine(String fileLine) throws Exception
+	private void parse(String line) throws Exception
 	{
-		if(isCommand(fileLine))
+		if(isCommand(line))
 		{
-			execute(fileLine);
+			execute(line);
 		}
 		else
 		{
-			Scanner scan = new Scanner(fileLine);
-			while(scan.hasNext())
-			{
-				lineBuilder.add(scan.next());
-				if(lineBuilder.isComplete())
-				{
-					String line = lineBuilder.getLine();
-					columnBuilder.add(line);
-					lineBuilder.reset();
-				}
-			}
-			scan.close();
+			columnBuilder.add(lineBuilder.format(line));
 		}
 	}
 	
 	//checks to see if the line is a command
-	private boolean isCommand(String line)
+	private static boolean isCommand(String line)
 	{
 		if(line.length() <= 0)
 			return false;
@@ -154,17 +124,15 @@ public class Format
 			break;
 		
 		case 't':
-			makeTitle();
+			title();
 			break;
 			
 		case 's':
-			spacing = SINGLE;
-			columnBuilder.setLineSpacing(spacing);
+			lineBuilder.setSpacing(SINGLE);
 			break;
 			
 		case 'd':
-			spacing = DOUBLE;
-			columnBuilder.setLineSpacing(spacing);
+			lineBuilder.setSpacing(DOUBLE);
 			break;
 			
 		default:
@@ -177,23 +145,23 @@ public class Format
 		switch(commandSymbol)
 		{
 		case 'n':
-			setMaxChars(parameter);
+			lineBuilder.setMaxChars(parseInteger(parameter));
 			break;
 			
 		case 'w':
-			setWrappable(parameter.charAt(FIRST));
+			setWrap(parameter.charAt(FIRST));
 			break;
 			
 		case 'a':
-			setNumColumns(parameter);
+			columnBuilder.setNumColumns(parseInteger(parameter));
 			break;
 		
 		case 'p':
-			indentNextLine(parameter);
+			lineBuilder.indent(parseInteger(parameter));
 			break;
 			
 		case 'b':
-			breakLine(parameter);
+			columnBuilder.add(lineBuilder.blankLines(parseInteger(parameter)));
 			break;
 			
 		default:
@@ -201,83 +169,37 @@ public class Format
 		}
 	}
 	
-	private void indentNextLine(String parameter) throws Exception
+	private static int parseInteger(String parameter) throws Exception
 	{
+		int parsedInteger = -1;
 		Scanner scan = new Scanner(parameter);
-		int numSpaces = -1;
 		if(scan.hasNextInt())
-			numSpaces = scan.nextInt();
+			parsedInteger = scan.nextInt();
 		scan.close();
-		if(numSpaces < 0)
-			throw INVALIDCOMMAND;
-		lineBuilder.addIndentation(numSpaces);
+		if(parsedInteger < 0)
+			throw new Exception();
+		return parsedInteger;
 	}
 	
-	private void setNumColumns(String parameter) throws Exception
+	private void title() throws Exception
 	{
-		Scanner scan = new Scanner(parameter);
-		int numColumns = 0;
-		if(scan.hasNextInt())
-			numColumns = scan.nextInt();
-		scan.close();
-		filteredText += columnBuilder.merge();
-		columnBuilder = new ColumnBuilder(numColumns);
-		columnBuilder.setLineSpacing(spacing);
-	}
-	
-	private void makeTitle() throws Exception
-	{
-		if(!lineBuilder.isEmpty())
-		{
-			String line = lineBuilder.getLine();
-			columnBuilder.add(line);
-			lineBuilder.reset();
-		}
-		
 		String nextLine = "";
 		while(fileScanner.hasNextLine() && isCommand((nextLine = fileScanner.nextLine())))
 			execute(nextLine);
-		String title = lineBuilder.makeTitle(nextLine);
-		String underline = new String(new char[title.length()]).replace('\0', '_');
 		
-		AllignmentType center = new CenterAllignment();
-		columnBuilder.add(center.allign(title, lineBuilder.getMaxChars()));
-		columnBuilder.add(center.allign(underline, lineBuilder.getMaxChars()));
+		int numColumns = columnBuilder.getNumColumns();
+		columnBuilder.setNumColumns(1);
+		columnBuilder.add(lineBuilder.makeTitle(nextLine));
+		columnBuilder.setNumColumns(numColumns);
 	}
 	
-	private void breakLine(String parameter) throws Exception
-	{
-		int numLines = -1;
-		Scanner scan = new Scanner(parameter);
-		if(scan.hasNextInt())
-			numLines = scan.nextInt();
-		scan.close();
-		if(numLines < 0)
-			throw INVALIDCOMMAND;
-		
-		for(int i = 0; i < numLines; i++)
-			columnBuilder.add(lineBuilder.blankLine());
-	}
-	
-	private void setMaxChars(String parameter) throws Exception
-	{
-		int maxChars = -1;
-		Scanner scan = new Scanner(parameter);
-		if(scan.hasNextInt())
-			maxChars = scan.nextInt();
-		scan.close();
-		if(maxChars <= 0)
-			throw INVALIDCOMMAND;
-		lineBuilder.setMaxChars(maxChars);
-	}
-	
-	private void setWrappable(char state) throws Exception
+	private void setWrap(char state) throws Exception
 	{
 		if(state != '+' && state != '-')
 			throw INVALIDCOMMAND;
 		else if(state == '+')
-			lineBuilder.setWrappable(true);
+			lineBuilder.setWrap(true);
 		else if(state == '-')
-			lineBuilder.setWrappable(false);
+			lineBuilder.setWrap(false);
 	}
 }

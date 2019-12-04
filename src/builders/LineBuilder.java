@@ -1,30 +1,106 @@
 package builders;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import allignment.*;
 
-public class LineBuilder
+public class LineBuilder 
 {
-	private int maxChars;
-	private boolean wrappable;
+	//constants
+	private static final String SPACE = " ";
+	private static final String UNDERLINE = "_";
+	private static final int SINGLE = 1;
+	private static final int DOUBLE = 2;
 	
+	//defaults
+	private static final AllignmentType DEFAULTALLIGNMENT = new LeftAllignment();
+	private static final boolean DEFAULTWRAPPABLE = true;
+	private static final int DEFAULTMAXCHARS = 60;
+	private static final int DEFAULTSPACING = SINGLE;
+	
+	//instance variables
 	private String line;
 	private String remainder;
-	private String indentation;
-	
 	private AllignmentType allignment;
-	private boolean isComplete;
+	private boolean wrappable;
+	private int maxChars;
+	private int spacing;
 	
-	public LineBuilder(int maxChars, boolean wrappable, AllignmentType allignment)
+	private ArrayList<String> formattedText;
+	
+	public LineBuilder()
 	{
-		this.maxChars = maxChars;
-		this.wrappable = wrappable;
-		this.allignment = allignment;
 		line = "";
 		remainder = "";
-		indentation = "";
-		isComplete = false;
+		formattedText = new ArrayList<String>();
+		allignment = DEFAULTALLIGNMENT;
+		wrappable = DEFAULTWRAPPABLE;
+		maxChars = DEFAULTMAXCHARS;
+		spacing = DEFAULTSPACING;
+	}
+	
+	public void indent(int numSpaces) throws Exception
+	{
+		if(numSpaces > maxChars)
+			throw new Exception("Error, you cannot indent more spaces than maximum characters in a line");
+		remainder = allignment.repeat(SPACE, numSpaces);
+	}
+	
+	public ArrayList<String> format(String rawText)
+	{
+		line = remainder;
+		formattedText = new ArrayList<String>();
+		
+		Scanner scan = new Scanner(rawText);
+		while(scan.hasNext())
+			add(scan.next());
+		scan.close();
+		
+		if(line.length() + remainder.length() > 0)
+			this.addToFormatted();
+		
+		return formattedText;
+	}
+	
+	public ArrayList<String> makeTitle(String rawText)
+	{
+		AllignmentType previousAllignment = this.allignment;
+		this.setAllignment(new CenterAllignment());
+		
+		ArrayList<String> title = format(rawText);
+		
+		String current;
+		String underline;
+		
+		for(int index = 0; index < title.size(); index++)
+		{
+			current = title.get(index).trim();
+			underline = allignment.repeat(UNDERLINE, current.length());
+			
+			current = allignment.allign(current, maxChars);
+			underline = allignment.allign(underline, maxChars);
+			
+			title.add(index + 1, underline);
+			
+			if(spacing == DOUBLE)
+				title.add(getBlankLine());
+			
+			index += spacing;			
+		}
+		
+		this.allignment = previousAllignment;
+		
+		return title;
+	}
+	
+	public String getBlankLine()
+	{
+		return allignment.repeat(" ", maxChars);
+	}
+	
+	public void setWrap(boolean wrappable)
+	{
+		this.wrappable = wrappable;
 	}
 	
 	public void setMaxChars(int maxChars)
@@ -32,104 +108,89 @@ public class LineBuilder
 		this.maxChars = maxChars;
 	}
 	
-	public int getMaxChars()
+	public ArrayList<String> blankLines(int numLines)
 	{
-		return maxChars;
+		ArrayList<String> blankLines = new ArrayList<String>();
+		for(int index = 0; index < (numLines * spacing); index++)
+			blankLines.add(getBlankLine());
+		return blankLines;
 	}
 	
-	
-	public void setWrappable(boolean wrappable)
+	public void setSpacing(int spacing) throws Exception
 	{
-		this.wrappable = wrappable;
-	}
-	
-	public void setAllignment(AllignmentType type)
-	{
-		allignment = type;
-	}
-	
-	public void add(String word) throws Exception
-	{
-		if(word.length() > maxChars && (wrappable == true))
-			throw new Exception("Word longer than line with wrap on");
+		if(spacing != 1 && spacing != 2)
+			throw new Exception("Error, spacing must be either 1, or 2");
 		
-		if(line.length() + word.length() > maxChars)
+		this.spacing = spacing;
+	}
+	
+	public void setAllignment(AllignmentType allignment)
+	{
+		this.allignment = allignment;
+	}
+	
+	private void add(String word)
+	{
+		line += word + SPACE;
+		
+		if(removeLastSpace(line).length() > maxChars)
+			wrap();
+	}
+	
+	private void wrap()
+	{
+		if(wrappable == true)
 		{
-			if(line.length() > maxChars)
-				line = line.trim();
-			
-			if(wrappable == true)
-			{
-				remainder = word;
-			}
-			else
-			{
-				int diff = maxChars - line.length();
-				line += word.substring(0, diff);
-				remainder = word.substring(diff);
-			}
-			isComplete = true;
+			remainder = getLastWord(line).trim();
+			line = removeLastWord(line);
 		}
 		else
 		{
-			line += word + " ";
-			isComplete = false;
+			remainder = line.substring(maxChars).trim();
+			line = line.substring(0, maxChars);
 		}
+		
+		this.addToFormatted();
 	}
 	
-	public boolean isComplete()
+	private void addToFormatted()
 	{
-		return isComplete;
-	}
-	
-	public boolean isEmpty()
-	{
-		return line.length() == 0;
-	}
-	
-	public String getLine()
-	{
-		return allignment.allign(indentation + line.trim(), maxChars);
-	}
-	
-	public String makeTitle(String fullLine) throws Exception
-	{
-		Scanner scan = new Scanner(fullLine);
-		String title = "";
-		while(scan.hasNext())
-		{
-			title += scan.next() + " ";
-		}
-		scan.close();
-		title = title.trim();
-		if(title.length() > maxChars)
-			throw new Exception("Error, title cannot fit on one line.");
-		return title;
-	}
-	
-	public void addIndentation(int numSpaces)
-	{
-		indentation = "";
-		for(int i = 0; i < numSpaces; i++)
-			indentation += " ";
-		if(line.length() <= 0)
-			line = indentation;
-		else
-			remainder = indentation + remainder;
-	}
-	
-	public String blankLine()
-	{
-		String blankLine = "";
-		for(int i = 0; i < maxChars; i++)
-			blankLine += " ";
-		return blankLine;
-	}
-	
-	public void reset()
-	{
-		line = remainder + " ";
+		line = removeLastSpace(line);
+		line = allignment.allign(line, maxChars);
+		formattedText.add(line);
+		
+		if(spacing == DOUBLE)
+			formattedText.add(getBlankLine());
+		
+		line = remainder + SPACE;
 		remainder = "";
-		indentation = "";
+	}
+	
+	private static String removeLastWord(String line)
+	{
+		line = removeLastSpace(line);
+		String lastWord = getLastWord(line);
+		line = line.substring(0, line.lastIndexOf(lastWord));
+		return line;
+	}
+	
+	private static String getLastWord(String line)
+	{
+		line = removeLastSpace(line);
+		if(line.length() > 0 && line.contains(SPACE))
+			line = line.substring(line.lastIndexOf(SPACE) + 1, line.length());
+		return line;
+	}
+	
+	private static String removeLastSpace(String line)
+	{
+		if(line.length() > 0 && lastChar(line) == ' ')
+			line = line.substring(0, line.lastIndexOf(SPACE));
+		return line;
+	}
+	
+	private static char lastChar(String line)
+	{
+		return line.charAt(line.length() - 1);
 	}
 }
