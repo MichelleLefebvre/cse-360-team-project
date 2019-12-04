@@ -69,7 +69,7 @@ public class LineBuilder
 		
 		ArrayList<String> title = format(rawText);
 		
-		if(title.size() > 1)
+		if(title.size() > spacing)
 			throw new Exception("Error, title is longer than one line.");
 		
 		String current;
