@@ -20,7 +20,6 @@ public class TextFormatter extends Application
         root.getChildren().add(inputPane);
         
         Scene scene = new Scene(root, 600, 600);
-        stage.getIcons().add(new Image("icon.png"));
         stage.setTitle("Text Formatter");
         stage.setScene(scene);
         stage.show();
