@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -19,6 +20,7 @@ public class TextFormatter extends Application
         root.getChildren().add(inputPane);
         
         Scene scene = new Scene(root, 600, 600);
+        stage.getIcons().add(new Image("icon.png"));
         stage.setTitle("Text Formatter");
         stage.setScene(scene);
         stage.show();
