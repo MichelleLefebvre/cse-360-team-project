@@ -15,7 +15,7 @@ public class LineBuilder
 	//defaults
 	private static final AllignmentType DEFAULTALLIGNMENT = new LeftAllignment();
 	private static final boolean DEFAULTWRAPPABLE = true;
-	private static final int DEFAULTMAXCHARS = 60;
+	private static final int DEFAULTMAXCHARS = 80;
 	private static final int DEFAULTSPACING = SINGLE;
 	
 	//instance variables
